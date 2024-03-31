@@ -1,0 +1,31 @@
+section#partners {
+
+  background-color: #ffffff;
+
+  h2 {
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    font-weight: normal !important;
+    color: #000000;
+    
+    span {
+      font-weight: bold;
+      color: #FDD220;
+    }
+
+  }
+
+  
+
+  @media (max-width:600px) {
+    #strategic-partners {
+      margin-top: 2rem;
+    }
+    
+    img {
+      height: 70px;
+      
+    }
+  }
+
+}

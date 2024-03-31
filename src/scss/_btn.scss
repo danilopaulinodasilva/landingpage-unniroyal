@@ -1,0 +1,19 @@
+.btn-primary {
+  background-color: $primary-color; // Change the background color
+  border-color: $primary-color; // Change the border color
+  color: #ffffff; // Change the text color
+  box-shadow: none; // Remove the shadow
+  background-image: none; // Remove the gradient
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  &:disabled,
+  &.disabled {
+    background-color: lighten($primary-color, 20%);
+    border-color: lighten($primary-color, 20%);
+    box-shadow: none;
+    background-image: none;
+  }
+}

@@ -1,0 +1,66 @@
+@import "variables";
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lexend", sans-serif !important;
+  font-weight: 700 !important;
+  color: $primary-color !important;
+}
+
+p {
+  font-family: "Lato", sans-serif;
+  font-size: 1.1rem;
+  color: #999999;
+}
+
+body {
+  padding: 0;
+}
+
+$offcanvas-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+
+// Include functions first
+@import "bootstrap/scss/functions";
+
+// Customize some defaults
+$body-color: #333333;
+$body-bg: #e7e7e7;
+$border-radius: 0.4rem;
+$success: $primary-color;
+
+// Required
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+
+// Utilities
+@import "bootstrap/scss/utilities/api";
+
+// Custom styles
+
+@import "btn";
+@import "header";
+@import "hero";
+@import "about";
+@import "numbers";
+@import "partners";
+@import "contact";
+@import "footer";
+@import "whatsapp";
+@import "responsive";

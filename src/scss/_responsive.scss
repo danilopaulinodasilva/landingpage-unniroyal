@@ -1,0 +1,14 @@
+section {
+  padding: 2rem;
+}
+
+@media (max-width:600px) {
+
+  header div.bg-sp {
+    height: 250px !important;
+  }
+
+  section {
+    padding: 1rem !important;
+  }
+}

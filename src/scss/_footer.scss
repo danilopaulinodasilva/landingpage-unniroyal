@@ -1,0 +1,15 @@
+footer {
+  background-color: #0f4b99;
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+
+  a {
+    color: #ffffff;
+
+    &:hover {
+      color: #cccccc;
+    }
+  }
+}
