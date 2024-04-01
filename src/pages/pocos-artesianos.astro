@@ -1,0 +1,257 @@
+---
+
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import logo from '../assets/img/unniroyal-logo.webp';
+import header from '../assets/img/header-poco-artesiano.webp';
+import seloAbnt from '../assets/img/selo-abnt.webp';
+import seloIso9001 from '../assets/img/selo-iso9001.webp';
+import seloNsf from '../assets/img/selo-nsf.webp';
+import seloSocial from '../assets/img/selo-social.webp';
+import tratamentoDeAgua from '../assets/img/tratamento-agua.webp';
+import sistemasDeFiltracao from '../assets/img/sistemas-de-filtracao.webp';
+import pocosArtesianos from '../assets/img/pocos-artesianos.webp';
+import laboratorioDeAnalise from '../assets/img/laboratorios-de-analises.webp';
+
+---
+
+<Layout title="Soluções para Tratamento de Água - Unniroyal">
+	<div class="container-fluid p-0">
+
+	<header id="hero">
+    <div class="container">
+        <div class="col-sm-12 col-md-6 logo">
+          <a href="index.html">
+						<Image src={logo} alt="Logo Unniroyal" class='ms-3 mt-4' loading="eager" width={150} />
+					</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="form" class="pb-0">
+    <div class="container">
+      <div class="row g-5 p-5">
+
+        <div class="col-lg-6 col-sm-12">
+					<Image src={header} alt="Imagem de estação de tratamento de água" class="w-100 h-auto" style={{borderRadius: "25px"}} loading="eager" />
+        </div>
+
+        <div class="col-lg-6 col-sm-12">
+          <h1>Poços Artesianos</h1>
+          <p class="mt-3">Contamos com uma equipe técnica especializada em fluidos subterrâneos, que realiza desde os estudos hidrogeológicos e de viabilidade econômica, até a construção e regularização do poço tubular, junto aos órgãos competentes.</p>
+
+          <div class="row justify-content-center mb-5 mt-3">
+            <div class="col-lg-12 my-3">
+              <form>
+                <div class="row">
+                  <div class="col-lg-6 col-sm-12">
+                    <div class="mb-3">
+                      <input type="text" class="form-control bg-white" id="name" placeholder="Nome completo">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-12">
+                    <div class="mb-3">
+                      <input type="email" class="form-control bg-white" id="email" placeholder="Empresa">
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-sm-12">
+                    <div class="mb-3">
+                      <input type="email" class="form-control bg-white" id="email" placeholder="Email">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-12">
+                    <div class="mb-3">
+                      <input type="email" class="form-control bg-white" id="email" placeholder="WhatsApp">
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <textarea class="form-control bg-white" id="message" rows="3" placeholder="Mensagem"></textarea>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary px-3">Enviar mensagem</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="destaque" class="py-5" style="background-color: #f7f7f7;">
+    <div class="container text-center py-3">
+      <h2 class="mb-3">Soluções Unniroyal Química</h2>
+        <p>Inovando e oferecendo soluções rápidas, sempre alinhado às necessidades dos nossos clientes.</p>
+        <div class="row mt-5 gx-4">
+
+          <div class="col-md-3 col-sm-12 mb-4">
+            <div class="bg-white rounded p-4 py-5" style="border-radius: 1.5rem !important;">
+							
+							<Image src={tratamentoDeAgua} alt="Ícone tratamento de água" class='mb-3' loading="lazy" height={100} />
+
+              <h6 style="font-family: 'Poppins', sans-serif !important; color: #333333; font-weight: bold;">Tratamento de Água</h6>
+
+              <p style="font-size: 1rem;" class="mt-4">Purificação e remoção de impurezas, garantindo saúde e sustentabilidade ambiental.</p>
+
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-12 mb-4">
+            <div class="bg-white rounded p-4 py-5" style="border-radius: 1.5rem !important;">
+             
+							<Image src={sistemasDeFiltracao} alt="Ícone sistemas de Filtração" class='mb-3' loading="lazy" height={100} />
+
+              <h6 style="font-family: 'Poppins', sans-serif !important; color: #333333; font-weight: bold;">Sistemas de Filtração</h6>
+
+              <p style="font-size: 1rem;" class="mt-4">Remoção partículas, clarificando e assegurando a qualidade hídrica.</p>
+
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-12 mb-4">
+            <div class="bg-white rounded p-4 py-5" style="border-radius: 1.5rem !important;">
+           
+							<Image src={pocosArtesianos} alt="Ícone poços artesianos" class='mb-3' loading="lazy" height={100} />
+
+              <h6 style="font-family: 'Poppins', sans-serif !important; color: #333333; font-weight: bold;">Poços Artesianos</h6>
+
+              <p style="font-size: 1rem;" class="mt-4">Solução sustentável para acesso à água subterrânea pura em áreas remotas e urbanas.</p>
+
+            </div>
+          </div>
+
+          <div class="col-md-3 col-sm-12 mb-4">
+            <div class="bg-white rounded p-4 py-5" style="border-radius: 1.5rem !important;">
+      
+							<Image src={laboratorioDeAnalise} alt="Ícone laboratórios de análises" class='mb-3' loading="lazy" height={100} />
+              
+							<h6 style="font-family: 'Poppins', sans-serif !important; color: #333333; font-weight: bold;">Laboratórios de Análises</h6>
+              
+							<p style="font-size: 1rem;" class="mt-4">Processo vital para desinfecção, neutralização de poluentes e purificação.</p>
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+  </section>
+
+  <section id="sobre" class="py-5 bg-white">
+    <div class="container mt-4">
+      <div class="row">
+
+        <div class="col-12 text-center mb-5">
+          <h2>Por que escolher a <span>Unniroyal</span></h2>
+        </div>
+
+      </div>
+
+      <div class="row d-flex align-items-stretch">
+
+        <div class="col-lg-6 col-sm-12 text-center mb-4">
+          <div class="p-5 text-white h-100 d-flex align-items-center" style="background-color: #0f4b99; border-radius: 1.5rem;">
+            <p class="mt-4 text-white">Desenvolvemos produtos químicos variados e serviços que facilitam a operação em estações de tratamento de águas, otimizando os processos, a aplicação e o controle de qualidade em toda a América Latina.
+            </p>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-sm-12 text-center mb-4">
+          <div class="p-5 text-white h-100 d-flex align-items-center" style="background-color: #0f4b99; border-radius: 1.5rem;">
+            <p class="mt-4 text-white">Realizamos auditorias e visitas periódicas aos clientes e fornecedores, além da capacitação constante de profissionais. O grupo Unniroyal trabalha garantindo a melhoria de suas instalações, produtos e serviços, potencializando a redução de custos e aprimorando a eficiência de processos.
+            </p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section id="selos" class="py-5" style="background-color: #f7f7f7;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center mb-4">
+          <h2>Certificações</h2>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-3" style="background: transparent;">
+					<Image src={seloAbnt} alt="Selo ABNT CRL 1199" class='img-responsive' loading="lazy" height={150} />
+        </div>
+
+        <div class="col-3">
+					<Image src={seloIso9001} alt="Selo NBR ISO 9001:2000" class='img-responsive' loading="lazy" height={150} />
+        </div>
+
+        <div class="col-3">
+					<Image src={seloNsf} alt="Selo NSF" class='img-responsive' loading="lazy" height={150} />
+				</div>
+
+        <div class="col-3">
+					<Image src={seloSocial} alt="Selo NSF" class='img-responsive' loading="lazy" height={150} />
+				</div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="py-5 bg-white">
+    <div class="container text-center">
+
+      <h2 class=" text-center">Entre em contato com nossa equipe comercial</h2>
+
+        <div class="row justify-content-center mt-5">
+          <div class="col-lg-8">
+            <form>
+              <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                  <div class="mb-3">
+                    <input type="text" class="form-control" id="name" placeholder="Nome completo">
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                  <div class="mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="Empresa">
+                  </div>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                  <div class="mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="Email">
+                  </div>
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                  <div class="mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="WhatsApp">
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="mb-3">
+                  <textarea class="form-control" id="message" rows="3" placeholder="Mensagem"></textarea>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary px-3">Enviar mensagem</button>
+            </form>
+          </div>
+        </div>
+
+        <p class="text-center mt-5">
+          <strong>Matriz:</strong> Av. Pirelli, 1560 - Distrito Industrial Éden - Sorocaba / SP - <strong>CEP:</strong> 18103-085 - <strong>Telefone:</strong> (15) 3202-7136
+        </p>
+
+    </div>
+  </section>
+
+  <Footer />
+
+</div>
+</Layout>

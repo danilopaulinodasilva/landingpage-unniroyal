@@ -10,8 +10,13 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@unpic/astro": "^0.0.44",
     "astro": "^4.5.12",
+    "astro-relative-links": "^0.3.9",
     "bootstrap": "^5.3.3",
     "sass": "^1.72.0"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^6.0.0"
   }
 }
