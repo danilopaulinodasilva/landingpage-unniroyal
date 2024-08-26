@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import logo from '../assets/img/unniroyal-logo.webp';
+
+// Captura o parâmetro da URL
+const urlParams = new URLSearchParams(Astro.request.url.split('?')[1]);
+const title = "Aguarde...";
+
+// Captura o parâmetro de pesquisa se necessário
+const servico = urlParams.get('servico') === 'undefined' ? 'Serviço não especificado' : urlParams.get('servico');
+const nome = urlParams.get('nome') === 'undefined' ? 'Nome não especificado' : urlParams.get('nome');
+
+---
+
+<Layout title="Aguarde - Unniroyal">
+
+  <div class="container-fluid p-0">
+    <header id="hero">
+      <div class="container">
+        <div class="col-sm-12 col-md-6 logo">
+          <a href="index.html">
+            <Image src={logo} alt="Logo Unniroyal" class='ms-3 mt-4' loading="eager" width={150} />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <section id="form" class="pb-0">
+      <div class="container">
+        <div class="row g-5 p-5">
+          <div class="col text-center">
+            <h1>{title}</h1>
+            <p class="mt-8 text-xl text-gray-500" style="margin-top: 1.5rem;">
+              Você será redirecionado para a página do WhatsApp em instantes. Caso isso não aconteça, 
+              <a id="url" href={`https://api.whatsapp.com/send?phone=5515991023059&text=Ol%C3%A1%2C%20me%20chamo%20${nome}.%20Gostaria%20de%20saber%20mais%20sobre%20${servico}.`} class="underline">
+                clique aqui
+              </a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Redireciona após um certo tempo
+      setTimeout(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const servico = urlParams.get('servico') === 'undefined' ? 'Serviço não especificado' : urlParams.get('servico');
+        const nome = urlParams.get('nome') === 'undefined' ? 'Nome não especificado' : urlParams.get('nome');
+
+        let url = `https://api.whatsapp.com/send?phone=5515991023059&text=Ol%C3%A1%2C%20me%20chamo%20${nome}%20e%20gostaria%20de%20mais%20informações.`;
+        if (servico !== 'Serviço não especificado') {
+          url = `https://api.whatsapp.com/send?phone=5515991023059&text=Ol%C3%A1%2C%20me%20chamo%20${nome}.%20Gostaria%20de%20saber%20mais%20sobre%20${servico}.`;
+        }
+
+        window.location.href = url;
+      }, 2000); // Ajuste o tempo conforme necessário
+    </script>
+
+    <Footer />
+  </div>
+
+</Layout>

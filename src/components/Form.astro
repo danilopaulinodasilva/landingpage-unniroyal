@@ -1,0 +1,393 @@
+---
+const errorsFooter = {};
+import WhatsApp from "./WhatsApp.astro";
+---
+
+<form id="formFooter" name="formFooter" class="emailForm">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="mb-3">
+        <input type="text" required name="nameFooter" class="form-control bg-white" id="nameFooter" placeholder="Nome completo">
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="mb-3">
+        <input type="text" required name="companyFooter" class="form-control bg-white" id="companyFooter" placeholder="Empresa">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="mb-3">
+        <input type="email" required name="emailFooter" class="form-control bg-white" id="emailFooter" placeholder="Email">
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="mb-3">
+        <input type="text" required name="telefoneFooter" class="form-control bg-white" id="telefoneFooter" placeholder="Telefone">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-3">
+        <select name="services" class="form-control bg-white" id="services">
+          <option disabled selected value="">Serviço</option>
+          <option value="Tratamento de Água">Tratamento de Água</option>
+          <option>Tratamento de Água de Caldeira</option>
+          <option>Tratamento de Efluentes</option>
+          <option>Osmose Reversa</option>
+          <option>Filtragem da Água</option>
+          <option>Desmineralização da Água</option>
+        </select>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <textarea required class="form-control bg-white" name="messageFooter" id="messageFooter" rows="3" placeholder="Mensagem"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" id="submitFooter" class="btn btn-primary px-3">Enviar mensagem</button>
+  <WhatsApp />
+
+</form>
+
+<script async>
+  document.addEventListener("DOMContentLoaded", function () {
+    const formFooter = document.getElementById("formFooter");
+    const btnFooter = document.querySelector("#submitFooter");
+    const errorsFooter = {
+      nameFooter: "",
+      companyFooter: "",
+      emailFooter: "",
+      telefoneFooter: "",
+      messageFooter: "",
+      services: "",
+    };
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validateFieldFooter(input, errorKey, errorMessage) {
+      const value = input.value.trim();
+
+      if (errorKey === "telefoneFooter") {
+        const digits = value.replace(/\D/g, "");
+        if (
+          digits.length < 10 ||
+          (digits.length > 11 && value.length === digits.length)
+        ) {
+          errorsFooter[errorKey] =
+            "O número de telefone deve ter 10 ou 11 dígitos.";
+        } else {
+          errorsFooter[errorKey] = "";
+        }
+      } else if (
+        value.length < 1 ||
+        (errorKey === "emailFooter" && !isValidEmail(value))
+      ) {
+        errorsFooter[errorKey] = errorMessage;
+      } else {
+        errorsFooter[errorKey] = "";
+      }
+    }
+
+    function validateSelectFieldFooter(select, errorKey, errorMessage) {
+      if (select.value === "") {
+        errorsFooter[errorKey] = errorMessage;
+      } else {
+        errorsFooter[errorKey] = "";
+      }
+    }
+
+    function updateUIFooter() {
+      document.querySelector("#nameFooter + p")?.remove();
+      document.querySelector("#companyFooter + p")?.remove();
+      document.querySelector("#emailFooter + p")?.remove();
+      document.querySelector("#telefoneFooter + p")?.remove();
+      document.querySelector("#messageFooter + p")?.remove();
+      document.querySelector("#services + p")?.remove();
+
+      const fieldsFooter = [
+        "nameFooter",
+        "companyFooter",
+        "emailFooter",
+        "telefoneFooter",
+        "messageFooter",
+        "services"
+      ];
+      fieldsFooter.forEach((id) => {
+        const input = document.getElementById(id);
+        if (input) {
+          input.style.border = "1px solid #dee2e6";
+          if (errorsFooter[id]) {
+            const errorElem = document.createElement("p");
+            errorElem.classList.add("error");
+            errorElem.textContent = errorsFooter[id];
+            input.style.borderColor = "red";
+            input.style.borderWidth = "2px";
+            input.style.borderStyle = "solid";
+            input.parentElement.appendChild(errorElem);
+          }
+        }
+      });
+    }
+
+    function handleBlurFooter(event) {
+      const { id } = event.target;
+      const errorMessagesFooter = {
+        nameFooter: "Por favor, insira um nome completo.",
+        companyFooter: "Por favor, insira o nome da empresa.",
+        emailFooter: "O email fornecido não é válido.",
+        telefoneFooter: "O número de telefone deve ter exatamente 11 dígitos.",
+        messageFooter: "Por favor, insira uma mensagem.",
+        services: "Por favor, selecione um serviço.",
+      };
+      if (event.target.tagName === 'SELECT') {
+        validateSelectFieldFooter(event.target, id, errorMessagesFooter[id]);
+      } else {
+        validateFieldFooter(event.target, id, errorMessagesFooter[id]);
+      }
+      updateUIFooter();
+    }
+
+    function handleInputFooter(event) {
+      const { id } = event.target;
+      const errorMessagesFooter = {
+        nameFooter: "Por favor, insira um nome completo.",
+        companyFooter: "Por favor, insira o nome da empresa.",
+        emailFooter: "O email fornecido não é válido.",
+        telefoneFooter: "O número de telefone deve ter exatamente 11 dígitos.",
+        messageFooter: "Por favor, insira uma mensagem.",
+        services: "Por favor, selecione um serviço.",
+      };
+      if (event.target.tagName === 'SELECT') {
+        validateSelectFieldFooter(event.target, id, errorMessagesFooter[id]);
+      } else {
+        validateFieldFooter(event.target, id, errorMessagesFooter[id]);
+      }
+      updateUIFooter();
+    }
+
+    function formatPhoneNumberFooter(phone) {
+      const digits = phone.replace(/\D/g, "");
+      if (digits.length <= 2) {
+        return `(${digits}`;
+      } else if (digits.length <= 7) {
+        return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+      } else {
+        return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(
+          7,
+          11
+        )}`;
+      }
+    }
+
+    function handlePhoneInputFooter(event) {
+      const input = event.target;
+      input.value = formatPhoneNumberFooter(input.value);
+    }
+
+    function formatFormDataToHTML(data) {
+      let htmlContent = "";
+      for (const [key, value] of Object.entries(data)) {
+        const labelText = key.charAt(0).toUpperCase() + key.slice(1);
+        htmlContent += `<p><strong>${labelText}:</strong> ${value}</p>`;
+      }
+      return htmlContent;
+    }
+
+    async function sendDataToGoogleSheets(jsonData) {
+      try {
+        const response = await fetch(
+          `http://localhost:9998/save/google/sheets/form`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify([Object.values(jsonData)]), // Enviar como uma linha na planilha
+          }
+        );
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          console.log("Google Sheets response:", responseData);
+        } else {
+          console.error("Error saving data to Google Sheets:", responseData.message);
+          alert("An error occurred while saving to Google Sheets, please try again.");
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        alert("An error occurred while saving to Google Sheets, please try again.");
+      }
+    }
+
+    async function sendDataToSendGrid(jsonData) {
+      try {
+        const response = await fetch(
+          `http://localhost:9998/send/email/sendgrid/footer`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(jsonData),
+          }
+        );
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          console.log("SendGrid response:", responseData);
+        } else {
+          console.error("Error sending data to SendGrid:", responseData.message);
+          alert("An error occurred while sending the email, please try again.");
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        alert("An error occurred while sending the email, please try again.");
+      }
+    }
+
+    btnFooter.addEventListener("click", async function (e) {
+      e.preventDefault();
+
+      errorsFooter.nameFooter = "";
+      errorsFooter.companyFooter = "";
+      errorsFooter.emailFooter = "";
+      errorsFooter.telefoneFooter = "";
+      errorsFooter.messageFooter = "";
+      errorsFooter.services = "";
+
+      const fieldsFooter = [
+        "nameFooter",
+        "companyFooter",
+        "emailFooter",
+        "telefoneFooter",
+        "messageFooter",
+        "services"
+      ];
+      fieldsFooter.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element.tagName === 'SELECT') {
+          validateSelectFieldFooter(element, id, {
+            services: "Por favor, selecione um serviço.",
+          }[id]);
+        } else {
+          validateFieldFooter(
+            element,
+            id,
+            {
+              nameFooter: "Por favor, insira um nome completo.",
+              companyFooter: "Por favor, insira o nome da empresa.",
+              emailFooter: "O email fornecido não é válido.",
+              telefoneFooter: "O número de telefone deve ter exatamente 11 dígitos.",
+              messageFooter: "Por favor, insira uma mensagem.",
+              services: "Por favor, selecione um serviço.",
+            }[id]
+          );
+        }
+      });
+
+      if (
+        errorsFooter.nameFooter ||
+        errorsFooter.companyFooter ||
+        errorsFooter.emailFooter ||
+        errorsFooter.telefoneFooter ||
+        errorsFooter.messageFooter ||
+        errorsFooter.services
+      ) {
+        updateUIFooter();
+      } else {
+        // Preparar dados para envio
+        const formData = new FormData();
+        fieldsFooter.forEach((field) => {
+          formData.append(field, document.getElementById(field)?.value || '');
+        });
+
+        const timestamp = new Date().toISOString();
+
+        const formattedTimestamp = new Date(timestamp).toLocaleString('pt-BR', {
+          dateStyle: 'short',
+          timeStyle: 'short'
+        });
+        
+        const jsonData = {
+          nameFooter: document.getElementById('nameFooter').value,
+          companyFooter: document.getElementById('companyFooter').value,
+          emailFooter: document.getElementById('emailFooter').value,
+          telefoneFooter: document.getElementById('telefoneFooter').value,
+          messageFooter: document.getElementById('messageFooter').value,
+          service: document.getElementById('services').value,
+          url: window.location.href,
+          timestamp: formattedTimestamp
+        };
+
+        // Enviar dados para a API do Google Sheets
+        await sendDataToGoogleSheets(jsonData);
+
+        // Enviar dados para a API de envio de e-mail
+        await sendDataToSendGrid(jsonData);
+
+        // window.location.href = `/obrigado`;
+
+      }
+    });
+
+    document
+      .getElementById("nameFooter")
+      .addEventListener("blur", handleBlurFooter);
+    document
+      .getElementById("nameFooter")
+      .addEventListener("input", handleInputFooter);
+
+    document
+      .getElementById("companyFooter")
+      .addEventListener("blur", handleBlurFooter);
+    document
+      .getElementById("companyFooter")
+      .addEventListener("input", handleInputFooter);
+
+    document
+      .getElementById("emailFooter")
+      .addEventListener("blur", handleBlurFooter);
+    document
+      .getElementById("emailFooter")
+      .addEventListener("input", handleInputFooter);
+
+    document
+      .getElementById("telefoneFooter")
+      .addEventListener("blur", handleBlurFooter);
+    document
+      .getElementById("telefoneFooter")
+      .addEventListener("input", handleInputFooter);
+    document
+      .getElementById("telefoneFooter")
+      .addEventListener("input", handlePhoneInputFooter);
+
+    document
+      .getElementById("messageFooter")
+      .addEventListener("blur", handleBlurFooter);
+    document
+      .getElementById("messageFooter")
+      .addEventListener("input", handleInputFooter);
+
+    document
+      .getElementById("services")
+      .addEventListener("blur", handleBlurFooter);
+    document
+      .getElementById("services")
+      .addEventListener("input", handleInputFooter);
+  });
+</script>

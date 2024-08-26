@@ -44,7 +44,6 @@ $success: $primary-color;
 @import "bootstrap/scss/utilities";
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
-
 @import "bootstrap/scss/type";
 @import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
@@ -66,3 +65,110 @@ $success: $primary-color;
 @import "footer";
 @import "whatsapp";
 @import "responsive";
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Slightly darker background */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #eae0d7 !important;
+  background-image: url("./img/ubt4h4q1mvh.png");
+  background-size: cover;
+  margin: 10% auto;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  width: 40%;
+  max-width: 500px;
+
+  @media screen and (max-width: 600px) {
+    width: 90%;
+  }
+}
+
+.modal-center {
+  padding: 1.5rem;
+}
+
+/* Modal Header */
+.modal-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #0c6056; /* Bootstrap primary color */
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  position: relative;
+}
+
+/* Logo image */
+.modal-logo {
+  height: 45px;
+  margin-right: 15px; /* Space between logo and text */
+}
+
+/* Title in Header */
+.modal-title {
+  flex: 1; /* Take up remaining space */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Title smaller text */
+.modal-title small {
+  font-size: 0.8rem;
+  display: block;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #ff6b6b; /* Change to red on hover/focus */
+}
+
+.btn-whatsapp,
+.btn-zap,
+#submitZap {
+  background: #24d366 !important;
+  margin-left: 5px;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 5px;
+}
+
+.btn-whatsapp:hover,
+.btn-zap:hover #submitZap:hover {
+  background: lighten($color: #24d366, $amount: 10) !important;
+  color: #ffffff;
+}
+
+p.error {
+  font-size: 0.8rem !important;
+  color: red !important;
+  display: block;
+}
+
+#submitZap {
+  margin-left: 0 !important;
+}

@@ -1,0 +1,293 @@
+---
+import { Image } from 'astro:assets';
+
+const errors = {};
+const { showFloat, selectedService } = Astro.props;
+const servico = selectedService; // Armazena o valor do parâmetro selectedService
+const whatsappLogo = "./img/whatsapp-icon.png";
+---
+
+{showFloat ? (
+    <span id="whatsapp" class="btn-whatsapp" style="position: fixed; bottom: 25px; right:25px; background:none !important;">
+      <Image src={whatsappLogo} alt="Logo WhatsApp" loading="eager" height="64" />
+    </span>
+) : (
+    <button type="button" data-bs-title={selectedService} class="btn btn-whatsapp">
+        <img src="./img/za98rdfs9a1.png" height="16" alt="Logo WhatsApp" loading="lazy" />
+        Falar por WhatsApp
+    </button>
+)}
+
+<div id="whatsappModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <img src="./img/pu1sougxxw.png" alt="Logo" class="modal-logo" />
+      <span class="modal-title">
+        Unniroyal<br />
+        <small>Online</small>
+      </span>
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-center">
+      <form id="whatsappForm" method="post">
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <input type="text" required name="nome1" class="form-control bg-white" id="nome1" placeholder="Nome completo">
+              {errors.nome1 && <p class="error">{errors.nome1}</p>}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <input type="email" required name="email1" class="form-control bg-white" id="email1" placeholder="Email">
+              {errors.email1 && <p class="error">{errors.email1}</p>}
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mb-3">
+              <input type="text" required name="telefone1" class="form-control bg-white" id="telefone1" placeholder="Telefone">
+              {errors.telefone1 && <p class="error">{errors.telefone1}</p>}
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" id="submitZap" class="btn btn-zap">Iniciar conversa</button>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.getElementById("whatsappForm");
+  const btn = document.querySelector("#submitZap");
+
+  const errors = {
+    nome1: "",
+    email1: "",
+    telefone1: "",
+  };
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function isValidPhoneNumber(phone) {
+    const digits = phone.replace(/\D/g, "");
+    return digits.length === 11;
+  }
+
+  function validateField(input, errorKey, errorMessage) {
+    const value = input.value.trim();
+    if (
+      value.length < 1 ||
+      (errorKey === "email1" && !isValidEmail(value)) ||
+      (errorKey === "telefone1" && !isValidPhoneNumber(value))
+    ) {
+      errors[errorKey] = errorMessage;
+    } else {
+      errors[errorKey] = "";
+    }
+  }
+
+  function updateUI() {
+    document.querySelector("#nome1 + p")?.remove();
+    document.querySelector("#email1 + p")?.remove();
+    document.querySelector("#telefone1 + p")?.remove();
+
+    const fields = ["nome1", "email1", "telefone1"];
+    fields.forEach((id) => {
+      const input = document.getElementById(id);
+      input.style.border = "none";
+      if (errors[id]) {
+        const errorElem = document.createElement("p");
+        errorElem.classList.add("error");
+        errorElem.textContent = errors[id];
+        input.style.borderColor = "red";
+        input.style.borderWidth = "2px";
+        input.style.borderStyle = "solid";
+        input.parentElement.appendChild(errorElem);
+      }
+    });
+  }
+
+  function handleBlur(event) {
+    const { id } = event.target;
+    const errorMessages = {
+      nome1: "Por favor, insira um nome completo.",
+      email1: "O email fornecido não é válido.",
+      telefone1: "O número de telefone deve ter exatamente 11 dígitos.",
+    };
+    validateField(event.target, id, errorMessages[id]);
+    updateUI();
+  }
+
+  function handleInput(event) {
+    const { id } = event.target;
+    const errorMessages = {
+      nome1: "Por favor, insira um nome completo.",
+      email1: "O email fornecido não é válido.",
+      telefone1: "O número de telefone deve ter exatamente 11 dígitos.",
+    };
+    validateField(event.target, id, errorMessages[id]);
+    updateUI();
+  }
+
+  function formatPhoneNumber(phone) {
+    const digits = phone.replace(/\D/g, "");
+    if (digits.length <= 2) {
+      return `(${digits}`;
+    } else if (digits.length <= 7) {
+      return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    } else {
+      return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(
+        7,
+        11
+      )}`;
+    }
+  }
+
+  function handlePhoneInput(event) {
+    const input = event.target;
+    input.value = formatPhoneNumber(input.value);
+  }
+
+  async function sendDataToGoogleSheets(jsonData) {
+      try {
+        const response = await fetch(
+          `http://localhost:9998/save/google/sheets/whatsapp`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify([Object.values(jsonData)]), // Enviar como uma linha na planilha
+          }
+        );
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          console.log("Google Sheets response:", responseData);
+        } else {
+          console.error("Error saving data to Google Sheets:", responseData.message);
+          alert("An error occurred while saving to Google Sheets, please try again.");
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        alert("An error occurred while saving to Google Sheets, please try again.");
+      }
+    }
+
+
+  btn.addEventListener("click", async function (e) {
+    e.preventDefault();
+
+    errors.nome1 = "";
+    errors.email1 = "";
+    errors.telefone1 = "";
+
+    const fields = ["nome1", "email1", "telefone1"];
+    fields.forEach((id) => {
+      const element = document.getElementById(id);
+      validateField(
+        element,
+        id,
+        {
+          nome1: "Por favor, insira um nome completo.",
+          email1: "O email fornecido não é válido.",
+          telefone1: "O número de telefone deve ter exatamente 11 dígitos.",
+        }[id]
+      );
+    });
+
+    if (errors.nome1 || errors.email1 || errors.telefone1) {
+      updateUI();
+    } else {
+      // Preparar dados para envio
+      const nome = document.getElementById("nome1").value;
+      const email = document.getElementById("email1").value;
+      const telefone = document.getElementById("telefone1").value;
+      const timestamp = new Date().toISOString();
+      const currentURL = window.location.href;
+
+      const jsonData = {
+          name: nome,
+          email: email,
+          phone: telefone,
+          url: currentURL,
+          timestamp: timestamp,
+        };
+
+      // Enviar dados para a API do Google Sheets
+      await sendDataToGoogleSheets(jsonData);
+
+      const hiddenServicoInput = document.getElementById("hiddenServico");
+      if (hiddenServicoInput.value) {
+        window.location.href = `/aguarde?servico=${encodeURIComponent(
+          hiddenServicoInput.value
+        )}&nome=${encodeURIComponent(nome)}`;
+
+        document.getElementById("nome1").value = "";
+        document.getElementById("email1").value = "";
+        document.getElementById("telefone1").value = "";
+      }
+    }
+  });
+
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      // enviar formulário
+    });
+  }
+
+  document.getElementById("nome1").addEventListener("blur", handleBlur);
+  document.getElementById("nome1").addEventListener("input", handleInput);
+  document.getElementById("email1").addEventListener("blur", handleBlur);
+  document.getElementById("email1").addEventListener("input", handleInput);
+
+  const telefoneInput = document.getElementById("telefone1");
+  telefoneInput.addEventListener("blur", handleBlur);
+  telefoneInput.addEventListener("input", handleInput);
+  telefoneInput.addEventListener("input", handlePhoneInput);
+});
+
+</script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("whatsappModal");
+    const btns = document.querySelectorAll(".btn-whatsapp");
+    const span = document.getElementsByClassName("close")[0];
+
+    function openModal(e) {
+      e.preventDefault();
+      modal.style.display = "block";
+      const servicoValue =
+        e.target.dataset.bsTitle ||
+        e.target.closest(".btn-whatsapp").dataset.bsTitle;
+      document.getElementById("hiddenServico").value = servicoValue;
+    }
+
+    btns.forEach(function (item) {
+      item.addEventListener("click", openModal);
+    });
+
+    span.addEventListener("click", function () {
+      modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function (event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  });
+</script>

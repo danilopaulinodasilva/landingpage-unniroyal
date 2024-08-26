@@ -13,10 +13,14 @@ import tratamentoDeAgua from '../assets/img/tratamento-agua.webp';
 import sistemasDeFiltracao from '../assets/img/sistemas-de-filtracao.webp';
 import pocosArtesianos from '../assets/img/pocos-artesianos.webp';
 import laboratorioDeAnalise from '../assets/img/laboratorios-de-analises.webp';
+import EmailLib from '../components/EmailLib.astro';
+import FormHeader from '../components/FormHeader.astro';
+import FormFooter from '../components/FormFooter.astro';
 
 ---
 
 <Layout title="Soluções para Tratamento de Água - Unniroyal">
+
 	<div class="container-fluid p-0">
 
 	<header id="hero">
@@ -26,7 +30,6 @@ import laboratorioDeAnalise from '../assets/img/laboratorios-de-analises.webp';
 						<Image src={logo} alt="Logo Unniroyal" class='ms-3 mt-4' loading="eager" width={150} />
 					</a>
         </div>
-      </div>
     </div>
   </header>
 
@@ -44,39 +47,7 @@ import laboratorioDeAnalise from '../assets/img/laboratorios-de-analises.webp';
 
           <div class="row justify-content-center mb-5 mt-3">
             <div class="col-lg-12 my-3">
-              <form>
-                <div class="row">
-                  <div class="col-lg-6 col-sm-12">
-                    <div class="mb-3">
-                      <input type="text" class="form-control bg-white" id="name" placeholder="Nome completo">
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-sm-12">
-                    <div class="mb-3">
-                      <input type="email" class="form-control bg-white" id="email" placeholder="Empresa">
-                    </div>
-                  </div>
-
-                </div>
-                <div class="row">
-                  <div class="col-lg-6 col-sm-12">
-                    <div class="mb-3">
-                      <input type="email" class="form-control bg-white" id="email" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="col-lg-6 col-sm-12">
-                    <div class="mb-3">
-                      <input type="email" class="form-control bg-white" id="email" placeholder="WhatsApp">
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="mb-3">
-                    <textarea class="form-control bg-white" id="message" rows="3" placeholder="Mensagem"></textarea>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary px-3">Enviar mensagem</button>
-              </form>
+              <FormHeader selectedService="Poços Artesianos" />
             </div>
           </div>
 
@@ -208,39 +179,7 @@ import laboratorioDeAnalise from '../assets/img/laboratorios-de-analises.webp';
 
         <div class="row justify-content-center mt-5">
           <div class="col-lg-8">
-            <form>
-              <div class="row">
-                <div class="col-lg-6 col-sm-12">
-                  <div class="mb-3">
-                    <input type="text" class="form-control" id="name" placeholder="Nome completo">
-                  </div>
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                  <div class="mb-3">
-                    <input type="email" class="form-control" id="email" placeholder="Empresa">
-                  </div>
-                </div>
-
-              </div>
-              <div class="row">
-                <div class="col-lg-6 col-sm-12">
-                  <div class="mb-3">
-                    <input type="email" class="form-control" id="email" placeholder="Email">
-                  </div>
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                  <div class="mb-3">
-                    <input type="email" class="form-control" id="email" placeholder="WhatsApp">
-                  </div>
-                </div>
-              </div>
-              <div class="col">
-                <div class="mb-3">
-                  <textarea class="form-control" id="message" rows="3" placeholder="Mensagem"></textarea>
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary px-3">Enviar mensagem</button>
-            </form>
+            <FormFooter selectedService="Poços Artesianos" />
           </div>
         </div>
 
@@ -253,5 +192,8 @@ import laboratorioDeAnalise from '../assets/img/laboratorios-de-analises.webp';
 
   <Footer />
 
-</div>
+  </div>
+
+  <EmailLib />
+
 </Layout>

@@ -1,0 +1,340 @@
+---
+
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import logo from '../assets/img/logo.png';
+
+import tratamentoAgua from '../assets/header-tratamento-de-agua.jpg';
+import aguaCaldeira from '../assets/header-tratamento-agua-caldeira.jpg';
+import efluentes from '../assets/header-tratamento-de-efluentes.jpg';
+import osmoseReversa from '../assets/header-osmose-reversa.jpg';
+import filtragemAgua from '../assets/header-filtragem-da-agua.jpg';
+import desmineralizacaoAgua from '../assets/header-desmineralizacao-da-agua.jpg';
+
+import seloAbnt from '../assets/img/selo-abnt.webp';
+import seloIso9001 from '../assets/img/selo-iso9001.webp';
+import seloNsf from '../assets/img/selo-nsf.webp';
+import seloSocial from '../assets/img/selo-social.webp';
+import tratamentoDeAgua from '../assets/img/tratamento-agua.webp';
+import sistemasDeFiltracao from '../assets/img/sistemas-de-filtracao.webp';
+import pocosArtesianos from '../assets/img/pocos-artesianos.webp';
+import laboratorioDeAnalise from '../assets/img/laboratorios-de-analises.webp';
+import EmailLib from '../components/EmailLib.astro';
+import Form from '../components/Form.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import ContactBtn from '../components/ContactBtn.astro';
+
+---
+
+<Layout title="Soluções para Tratamento de Água - Unniroyal">
+
+	<div class="container-fluid p-0">
+
+    <section id="form" class="pb-0" style="background-image: url('./img/topo3.jpg'); background-size: cover; background-position: center center;">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-sm-12 col-md-6 logo">
+            <a href="index.html">
+              <Image src={logo} alt="Logo Unniroyal" class='ms-3 mt-4' loading="eager" width={150} />
+            </a>
+          </div>
+        </div>
+        
+        <div class="row g-5 p-5">
+
+          <div class="col-12 py-5 mb-5" style="display: flex; flex-direction: column; justify-content: center; align-items: center;  background-size: cover; background-position: center; color: white;">
+            <h1 style="font-size: 3rem !important;">Soluções para Tratamento de Água</h1>
+            <p class="mt-3 text-center" style="margin: 0 12rem;">Há mais de 20 anos no mercado, temos a missão de criar soluções inovadoras e sustentáveis para o segmento, tanto em âmbito nacional, quanto internacional.</p>
+
+            <div class="mt-5">
+              <ContactBtn />
+              <WhatsApp />
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-0">
+      <div class="container">
+        <div class="row g-5 p-5">
+
+          <div class="col-lg-6 col-sm-12">
+            <Image src={tratamentoAgua} alt="Imagem de estação de tratamento de água" class="w-100 h-auto" style={{borderRadius: "25px"}} loading="lazy" />
+          </div>
+
+          <div class="col-lg-6 col-sm-12">
+            <h1>Tratamento de Água</h1>
+            <p class="mt-3 mb-4">A Unniroyal é uma empresa especializada no tratamento de água, comprometida em garantir a qualidade ideal de fluídos, tanto para uso industrial, como para consumo. Temos uma linha completa de serviços e produtos que atende a todos os segmentos do mercado.</p>
+            <div class="mt-3">
+              <ContactBtn />
+              <WhatsApp selectedService="Tratamento de Água" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-0" style="background-color: #f7f7f7;">
+      <div class="container">
+        <div class="row g-5 p-5">
+
+          <div class="col-lg-6 col-sm-12">
+            <h1>Tratamento de Água de Caldeira</h1>
+            <p class="mt-3 mb-4">Garanta a máxima eficiência e longevidade das suas caldeiras.</p>
+
+            <p class="mt-3 mb-4">Saiba como nosso tratamento especializado pode otimizar o desempenho do seu sistema, aumentar a eficiência energética e reduzir significativamente os custos operacionais.
+              </p>
+            <div class="mt-3">
+              <ContactBtn />
+              <WhatsApp selectedService="Tratamento de Água de Caldeira" />
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-12">
+            <Image src={aguaCaldeira} alt="Imagem de estação de tratamento de água" class="w-100 h-auto" style={{borderRadius: "25px"}} loading="lazy" />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-0">
+      <div class="container">
+        <div class="row g-5 p-5">
+
+          <div class="col-lg-6 col-sm-12">
+            <Image src={efluentes} alt="Imagem de estação de tratamento de efluentes" class="w-100 h-auto" style={{borderRadius: "25px"}} loading="lazy" />
+          </div>
+
+          <div class="col-lg-6 col-sm-12">
+            <h1>Tratamento de Efluentes</h1>
+            <p class="mt-3 mb-4">Garanta um tratamento eficiente e sustentável para seus efluentes. Reduza contaminantes e prepare suas águas para reuso com nossos sistemas de filtragem e sedimentação.</p>
+
+            <p class="mt-3 mb-4">Fale conosco e veja como podemos aprimorar seus processos de tratamento de efluentes.
+
+            <div class="mt-3">
+              <ContactBtn />
+              <WhatsApp selectedService="Tratamento de Efluentes" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-0" style="background-color: #f7f7f7;">
+      <div class="container">
+        <div class="row g-5 p-5">
+
+          <div class="col-lg-6 col-sm-12">
+            <h1>Osmose Reversa</h1>
+            <p class="mt-3 mb-4">Transforme a qualidade da sua água com nossa tecnologia de Osmose Reversa, garantindo água pura e desmineralizada sem o uso de produtos químicos.
+
+            <p class="mt-3 mb-4">Entre em contato conosco agora e descubra como podemos melhorar seus processos com uma solução eficiente e sustentável.</p>
+
+            <div class="mt-3">
+              <ContactBtn />
+              <WhatsApp selectedService="Osmose Reversa" />
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-12">
+            <Image src={osmoseReversa} alt="Imagem de estação de tratamento de água" class="w-100 h-auto" style={{borderRadius: "25px"}} loading="lazy" />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-0">
+      <div class="container">
+        <div class="row g-5 p-5">
+
+          <div class="col-lg-6 col-sm-12">
+            <Image src={filtragemAgua} alt="Imagem de estação de tratamento de efluentes" class="w-100 h-auto" style={{borderRadius: "25px"}} loading="lazy" />
+          </div>
+
+          <div class="col-lg-6 col-sm-12">
+            <h1>Filtragem da Água</h1>
+            <p class="mt-3 mb-4">Oferecemos um tratamento eficaz que assegura a qualidade da água em cada etapa do processo, utilizando elementos filtrantes como areia, carvão, zeólito, membranas e resinas.</p>
+
+            <p class="mt-3 mb-4">Além disso, atuamos na prevenção e combate à incrustação, corrosão e outros problemas causados pelo acúmulo de impurezas em sistemas industriais e estações de tratamento.</p>            
+
+            <div class="mt-3">
+              <ContactBtn />
+              <WhatsApp selectedService="Filtragem da Água" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-0" style="background-color: #f7f7f7;">
+      <div class="container">
+        <div class="row g-5 p-5">
+
+          <div class="col-lg-6 col-sm-12">
+            <h1>Desmineralização da Água</h1>
+            <p class="mt-3 mb-4">Veja como nosso desmineralizador pode fornecer água de alta pureza para suas caldeiras, aumentando a eficiência do sistema e prolongando sua vida útil.</p>
+            
+            <div class="mt-3">
+              <ContactBtn />
+              <WhatsApp selectedService="Desmineralização da Água" />
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-12">
+            <Image src={desmineralizacaoAgua} alt="Imagem de estação de tratamento de água" class="w-100 h-auto" style={{borderRadius: "25px"}} loading="lazy" />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="destaque" class="py-5">
+      <div class="container text-center py-3">
+        <h2 class="mb-3">Soluções Unniroyal Química</h2>
+          <p>Inovando e oferecendo soluções rápidas, sempre alinhado às necessidades dos nossos clientes.</p>
+          <div class="row mt-5 gx-4">
+
+            <div class="col-md-3 col-sm-12 mb-4">
+              <div class="bg-white rounded p-4 py-5" style="border-radius: 1.5rem !important;">
+                
+                <Image src={tratamentoDeAgua} alt="Ícone tratamento de água" class='mb-3' loading="lazy" height={100} />
+
+                <h6 style="font-family: 'Poppins', sans-serif !important; color: #333333; font-weight: bold;">Tratamento de Água</h6>
+
+                <p style="font-size: 1rem;" class="mt-4">Purificação e remoção de impurezas, garantindo saúde e sustentabilidade ambiental.</p>
+
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12 mb-4">
+              <div class="bg-white rounded p-4 py-5" style="border-radius: 1.5rem !important;">
+              
+                <Image src={sistemasDeFiltracao} alt="Ícone sistemas de Filtração" class='mb-3' loading="lazy" height={100} />
+
+                <h6 style="font-family: 'Poppins', sans-serif !important; color: #333333; font-weight: bold;">Sistemas de Filtração</h6>
+
+                <p style="font-size: 1rem;" class="mt-4">Remoção partículas, clarificando e assegurando a qualidade hídrica.</p>
+
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12 mb-4">
+              <div class="bg-white rounded p-4 py-5" style="border-radius: 1.5rem !important;">
+            
+                <Image src={pocosArtesianos} alt="Ícone poços artesianos" class='mb-3' loading="lazy" height={100} />
+
+                <h6 style="font-family: 'Poppins', sans-serif !important; color: #333333; font-weight: bold;">Poços Artesianos</h6>
+
+                <p style="font-size: 1rem;" class="mt-4">Solução sustentável para acesso à água subterrânea pura em áreas remotas e urbanas.</p>
+
+              </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12 mb-4">
+              <div class="bg-white rounded p-4 py-5" style="border-radius: 1.5rem !important;">
+        
+                <Image src={laboratorioDeAnalise} alt="Ícone laboratórios de análises" class='mb-3' loading="lazy" height={100} />
+                
+                <h6 style="font-family: 'Poppins', sans-serif !important; color: #333333; font-weight: bold;">Laboratórios de Análises</h6>
+                
+                <p style="font-size: 1rem;" class="mt-4">Processo vital para desinfecção, neutralização de poluentes e purificação.</p>
+
+              </div>
+            </div>
+
+          </div>
+      </div>
+    </section>
+
+    <section id="sobre" class="py-5 bg-white">
+      <div class="container mt-4">
+        <div class="row">
+
+          <div class="col-12 text-center mb-5">
+            <h2>Por que escolher a <span>Unniroyal</span></h2>
+          </div>
+
+        </div>
+
+        <div class="row d-flex align-items-stretch">
+
+          <div class="col-lg-6 col-sm-12 text-center mb-4">
+            <div class="p-5 text-white h-100 d-flex align-items-center" style="background-color: #0f4b99; border-radius: 1.5rem;">
+              <p class="mt-4 text-white">Desenvolvemos produtos químicos variados e serviços que facilitam a operação em estações de tratamento de águas, otimizando os processos, a aplicação e o controle de qualidade em toda a América Latina.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-12 text-center mb-4">
+            <div class="p-5 text-white h-100 d-flex align-items-center" style="background-color: #0f4b99; border-radius: 1.5rem;">
+              <p class="mt-4 text-white">Realizamos auditorias e visitas periódicas aos clientes e fornecedores, além da capacitação constante de profissionais. O grupo Unniroyal trabalha garantindo a melhoria de suas instalações, produtos e serviços, potencializando a redução de custos e aprimorando a eficiência de processos.
+              </p>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section id="selos" class="py-5" style="background-color: #f7f7f7;">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 text-center mb-4">
+            <h2>Certificações</h2>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-3" style="background: transparent;">
+            <Image src={seloAbnt} alt="Selo ABNT CRL 1199" class='img-responsive' loading="lazy" height={150} />
+          </div>
+
+          <div class="col-3">
+            <Image src={seloIso9001} alt="Selo NBR ISO 9001:2000" class='img-responsive' loading="lazy" height={150} />
+          </div>
+
+          <div class="col-3">
+            <Image src={seloNsf} alt="Selo NSF" class='img-responsive' loading="lazy" height={150} />
+          </div>
+
+          <div class="col-3">
+            <Image src={seloSocial} alt="Selo NSF" class='img-responsive' loading="lazy" height={150} />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" class="py-5 bg-white">
+      <div class="container text-center">
+
+        <h2 class=" text-center">Entre em contato com nossa equipe comercial</h2>
+
+          <div class="row justify-content-center mt-5">
+            <div class="col-lg-8">
+              <Form />
+            </div>
+          </div>
+
+          <p class="text-center mt-5">
+            <strong>Matriz:</strong> Av. Pirelli, 1560 - Distrito Industrial Éden - Sorocaba / SP - <strong>CEP:</strong> 18103-085 - <strong>Telefone:</strong> (15) 3202-7136
+          </p>
+
+      </div>
+    </section>
+
+    <Footer />
+
+  </div>
+
+  <EmailLib />
+
+</Layout>

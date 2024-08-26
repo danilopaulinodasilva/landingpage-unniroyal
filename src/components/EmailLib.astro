@@ -1,0 +1,103 @@
+<script async>
+
+  var title = document.title.replace(" - Unniroyal", "");
+  var url = window.location.href;
+
+  var configEmail = {
+    to: "contato@unniroyal.com.br",
+    from: "noreply@api2.email",
+    replyTo: document.querySelectorAll("#email"),
+    service: "sendgrid",
+    successPage: "casa-do-caralho",
+    subject: "[LP] " + title,
+  };
+  
+  window.onload = function () {
+    function formatFormDataToHTML(formData) {
+      let htmlContent = "";
+  
+      for (const [key, value] of formData.entries()) {
+        const label = document.querySelector(`label[for="${key}"]`);
+        const inputElement = document.querySelector(`[name="${key}"]`);
+        const labelText = label
+          ? label.textContent.trim()
+          : inputElement
+          ? inputElement.placeholder || key
+          : key;
+  
+        htmlContent += `<p><strong>${labelText}:</strong> ${value}</p>`;
+      }
+  
+      return htmlContent;
+    }
+  
+    async function sendFormDataToAPI(jsonData) {
+      console.log("Sending data:", jsonData);
+  
+      try {
+        const response = await fetch(
+          // `https://api2email-nodejs.oofut8.easypanel.host/send/${jsonData.service}`,
+          `http://localhost:9998//save/google/sheets/contato`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(jsonData),
+          }
+        );
+  
+        const responseData = await response.json();
+  
+        if (responseData.success) {
+          console.log("API response:", responseData);
+          // window.location.href = jsonData.successPage;
+        } else {
+          console.error("Error sending data to the API:", responseData.message);
+          alert("An error occurred, please try again.");
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        alert("An error occurred, please try again.");
+      }
+    }
+  
+    function handleFormSubmit(event, configEmail) {
+      event.preventDefault(); // Prevent form default submit behavior (page reload)
+  
+      const formData = new FormData(event.target); // Get the current form data
+      const htmlContent = formatFormDataToHTML(formData);
+  
+      // Find all email fields in the form
+      const emailFields = Array.from(formData.entries())
+        .filter(([key, value]) => key.toLowerCase().includes("email"))
+        .map(([key, value]) => value);
+  
+      // Concatenate email field values if there are multiple, otherwise just use the single value
+      const emailFieldValue = emailFields.join(", ");
+  
+      // Add the configuration data to the JSON object
+      const jsonData = {
+        service: configEmail.service,
+        to: configEmail.to,
+        from: configEmail.from,
+        replyTo: emailFieldValue,
+        subject: configEmail.subject,
+        successPage: configEmail.successPage,
+        html: htmlContent,
+      };
+  
+      // Send the data to the API
+      sendFormDataToAPI(jsonData);
+    }
+  
+    // Add event listeners to all forms with the 'emailForm' class
+    const emailForms = document.querySelectorAll(".emailForm");
+    emailForms.forEach((form) => {
+      form.addEventListener("submit", function (event) {
+        handleFormSubmit(event, configEmail);
+      });
+    });
+  };
+  
+</script>

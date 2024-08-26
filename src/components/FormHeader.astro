@@ -1,0 +1,274 @@
+---
+const errorsHeader = {};
+const { selectedService } = Astro.props;
+import WhatsApp from "./WhatsApp.astro";
+---
+
+<form id="formHeader" name="formHeader" class="emailForm">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="mb-3">
+        <input type="text" required name="nameHeader" class="form-control bg-white" id="nameHeader" placeholder="Nome completo">
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="mb-3">
+        <input type="text" required name="companyHeader" class="form-control bg-white" id="companyHeader" placeholder="Empresa">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="mb-3">
+        <input type="email" required name="emailHeader" class="form-control bg-white" id="emailHeader" placeholder="Email">
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="mb-3">
+        <input type="text" required name="telefoneHeader" class="form-control bg-white" id="telefoneHeader" placeholder="Telefone">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <textarea required class="form-control bg-white" name="messageHeader" id="messageHeader" rows="3" placeholder="Mensagem"></textarea>
+        <input  type="hidden"  id="service" name="service" value={selectedService}>
+      </div>
+    </div>
+  </div>
+  <button type="submit" id="submitHeader" class="btn btn-primary px-3">Enviar mensagem</button>
+  <WhatsApp selectedService={selectedService} />
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const formHeader = document.getElementById('formHeader');
+    const btnHeader = document.querySelector('#submitHeader');
+    const errorsHeader = {
+      nameHeader: "",
+      companyHeader: "",
+      emailHeader: "",
+      telefoneHeader: "",
+      messageHeader: ""
+    };
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function validateFieldHeader(input, errorKey, errorMessage) {
+      const value = input.value.trim();
+
+      if (errorKey === 'telefoneHeader') {
+        const digits = value.replace(/\D/g, '');
+        if (digits.length < 10 || (digits.length > 11 && value.length === digits.length)) {
+          errorsHeader[errorKey] = "O número de telefone deve ter 10 ou 11 dígitos.";
+        } else {
+          errorsHeader[errorKey] = "";
+        }
+      } else if (value.length < 1 || (errorKey === 'emailHeader' && !isValidEmail(value))) {
+        errorsHeader[errorKey] = errorMessage;
+      } else {
+        errorsHeader[errorKey] = "";
+      }
+    }
+
+    function updateUIHeader() {
+      document.querySelector('#nameHeader + p')?.remove();
+      document.querySelector('#companyHeader + p')?.remove();
+      document.querySelector('#emailHeader + p')?.remove();
+      document.querySelector('#telefoneHeader + p')?.remove();
+      document.querySelector('#messageHeader + p')?.remove();
+
+      const fieldsHeader = ['nameHeader', 'companyHeader', 'emailHeader', 'telefoneHeader', 'messageHeader'];
+      fieldsHeader.forEach(id => {
+        const input = document.getElementById(id);
+        input.style.border = "1px solid #dee2e6";
+        if (errorsHeader[id]) {
+          const errorElem = document.createElement('p');
+          errorElem.classList.add('error');
+          errorElem.textContent = errorsHeader[id];
+          input.style.borderColor = "red";
+          input.style.borderWidth = "2px";
+          input.style.borderStyle = "solid";
+          input.parentElement.appendChild(errorElem);
+        }
+      });
+    }
+
+    function handleBlurHeader(event) {
+      const { id } = event.target;
+      const errorMessagesHeader = {
+        nameHeader: "Por favor, insira um nome completo.",
+        companyHeader: "Por favor, insira o nome da empresa.",
+        emailHeader: "O email fornecido não é válido.",
+        telefoneHeader: "O número de telefone deve ter exatamente 11 dígitos.",
+        messageHeader: "Por favor, insira uma mensagem."
+      };
+      validateFieldHeader(event.target, id, errorMessagesHeader[id]);
+      updateUIHeader();
+    }
+
+    function handleInputHeader(event) {
+      const { id } = event.target;
+      const errorMessagesHeader = {
+        nameHeader: "Por favor, insira um nome completo.",
+        companyHeader: "Por favor, insira o nome da empresa.",
+        emailHeader: "O email fornecido não é válido.",
+        telefoneHeader: "O número de telefone deve ter exatamente 11 dígitos.",
+        messageHeader: "Por favor, insira uma mensagem."
+      };
+      validateFieldHeader(event.target, id, errorMessagesHeader[id]);
+      updateUIHeader();
+    }
+
+    function formatPhoneNumberHeader(phone) {
+      const digits = phone.replace(/\D/g, '');
+      if (digits.length <= 2) {
+        return `(${digits}`;
+      } else if (digits.length <= 7) {
+        return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+      } else {
+        return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+      }
+    }
+
+    function handlePhoneInputHeader(event) {
+      const input = event.target;
+      input.value = formatPhoneNumberHeader(input.value);
+    }
+
+    async function sendDataToGoogleSheets(jsonData) {
+      try {
+        const response = await fetch(
+          `http://localhost:9998/save/google/sheets/form`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify([Object.values(jsonData)]), // Enviar como uma linha na planilha
+          }
+        );
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          console.log("Google Sheets response:", responseData);
+        } else {
+          console.error("Error saving data to Google Sheets:", responseData.message);
+          alert("An error occurred while saving to Google Sheets, please try again.");
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        alert("An error occurred while saving to Google Sheets, please try again.");
+      }
+    }
+
+    async function sendDataToSendGrid(jsonData) {
+      try {
+        const response = await fetch(
+          `http://localhost:9998/send/email/sendgrid/header`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(jsonData),
+          }
+        );
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+          console.log("SendGrid response:", responseData);
+        } else {
+          console.error("Error sending data to SendGrid:", responseData.message);
+          alert("An error occurred while sending the email, please try again.");
+        }
+      } catch (error) {
+        console.error("Network error:", error);
+        alert("An error occurred while sending the email, please try again.");
+      }
+    }
+
+    btnHeader.addEventListener('click', async function(e) {
+      e.preventDefault();
+
+      errorsHeader.nameHeader = "";
+      errorsHeader.companyHeader = "";
+      errorsHeader.emailHeader = "";
+      errorsHeader.telefoneHeader = "";
+      errorsHeader.messageHeader = "";
+
+      const fieldsHeader = ['nameHeader', 'companyHeader', 'emailHeader', 'telefoneHeader', 'messageHeader'];
+      fieldsHeader.forEach(id => {
+        validateFieldHeader(document.getElementById(id), id, {
+          nameHeader: "Por favor, insira um nome completo.",
+          companyHeader: "Por favor, insira o nome da empresa.",
+          emailHeader: "O email fornecido não é válido.",
+          telefoneHeader: "O número de telefone deve ter exatamente 11 dígitos.",
+          messageHeader: "Por favor, insira uma mensagem."
+        }[id]);
+      });
+
+      if (errorsHeader.nameHeader || errorsHeader.companyHeader || errorsHeader.emailHeader || errorsHeader.telefoneHeader || errorsHeader.messageHeader) {
+        updateUIHeader();
+      } else {
+
+        const timestamp = new Date().toISOString();
+
+        const formattedTimestamp = new Date(timestamp).toLocaleString('pt-BR', {
+          dateStyle: 'short',
+          timeStyle: 'short'
+        });
+
+        const jsonData = {
+          nameHeader: document.getElementById('nameHeader').value,
+          companyHeader: document.getElementById('companyHeader').value,
+          emailHeader: document.getElementById('emailHeader').value,
+          telefoneHeader: document.getElementById('telefoneHeader').value,
+          messageHeader: document.getElementById('messageHeader').value,
+          service: document.getElementById('service').value,
+          url: window.location.href,
+          timestamp: formattedTimestamp
+        };
+
+        await sendDataToGoogleSheets(jsonData);
+        await sendDataToSendGrid(jsonData);
+
+        document.getElementById("nameHeader").value = "";
+        document.getElementById("companyHeader").value = "";
+        document.getElementById("emailHeader").value = "";
+        document.getElementById("telefoneHeader").value = "";
+        document.getElementById("messageHeader").value = "";
+
+        document.getElementById('nameHeader').style.border = "1px solid #dee2e6";
+        document.getElementById('companyHeader').style.border = "1px solid #dee2e6";
+        document.getElementById('emailHeader').style.border = "1px solid #dee2e6";
+        document.getElementById('telefoneHeader').style.border = "1px solid #dee2e6";
+        document.getElementById('messageHeader').style.border = "1px solid #dee2e6";
+
+        // window.location.href = `/obrigado`;
+      }
+    });
+
+    document.getElementById('nameHeader').addEventListener('blur', handleBlurHeader);
+    document.getElementById('nameHeader').addEventListener('input', handleInputHeader);
+
+    document.getElementById('companyHeader').addEventListener('blur', handleBlurHeader);
+    document.getElementById('companyHeader').addEventListener('input', handleInputHeader);
+
+    document.getElementById('emailHeader').addEventListener('blur', handleBlurHeader);
+    document.getElementById('emailHeader').addEventListener('input', handleInputHeader);
+
+    const telefoneInputHeader = document.getElementById('telefoneHeader');
+    telefoneInputHeader.addEventListener('blur', handleBlurHeader);
+    telefoneInputHeader.addEventListener('input', handleInputHeader);
+    telefoneInputHeader.addEventListener('input', handlePhoneInputHeader);
+
+    document.getElementById('messageHeader').addEventListener('blur', handleBlurHeader);
+    document.getElementById('messageHeader').addEventListener('input', handleInputHeader);
+  });
+</script>

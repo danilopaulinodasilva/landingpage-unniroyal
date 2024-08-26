@@ -1,0 +1,41 @@
+---
+
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
+import logo from '../assets/img/unniroyal-logo.webp';
+
+---
+
+<Layout title="Obrigado - Unniroyal">
+
+	<div class="container-fluid p-0">
+
+    <header id="hero">
+      <div class="container">
+          <div class="col-sm-12 col-md-6 logo">
+            <a href="index.html">
+              <Image src={logo} alt="Logo Unniroyal" class='ms-3 mt-4' loading="eager" width={150} />
+            </a>
+        </div>
+      </div>
+    </header>
+
+    <section id="form" class="pb-0">
+      <div class="container">
+        <div class="row g-5 p-5">
+
+          <div class="col text-center">
+            <h1>Obrigado</h1>
+            <p class="mt-3">Mensagem enviada com sucesso, em breve retornaremos o contato.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <Footer />
+
+  </div>
+
+</Layout>
